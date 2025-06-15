@@ -10,7 +10,7 @@ def average_weights(weight_paths):
     state_dicts = []
     for p in weight_paths:
         ckpt = torch.load(p, map_location='cpu', weights_only=False)
-        # YOLOv8 checkpoints can be a bit tricky, 'model' key usually holds the actual model or its state_dict
+        # YOLOv8 'model' key usually holds the actual model or its state_dict
         if 'model' in ckpt:
             # If ckpt['model'] is a nn.Module, get its state_dict
             if hasattr(ckpt['model'], 'state_dict'):
@@ -70,7 +70,7 @@ def save_averaged_model(avg_state_dict, save_path):
 
     # Let's refine this in main.py, as saving just the state_dict here is simpler.
     # The crucial part is loading this `avg_state_dict` into a correctly structured YOLOv8 model.
-    torch.save(avg_state_dict, save_path) # Save just the state_dict for now
+    torch.save(avg_state_dict, save_path)
     print(f"✅ Averaged state_dict saved to: {save_path}")
 
 
