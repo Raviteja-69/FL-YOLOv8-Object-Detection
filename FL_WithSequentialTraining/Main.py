@@ -2,18 +2,34 @@ import os
 import subprocess
 import torch
 from ultralytics import YOLO
+import shutil # For cleaning up temporary directories
 
-NUM_ROUNDS = 5
+# Configuration
+NUM_ROUNDS = 3
+# Ensure these paths are correct for your dataset in Google Drive
 CLIENTS = [
-    {'data_yaml': 'ppekit/client1/data.yaml', 'model_name': 'client1'},
-    {'data_yaml': 'ppekit/client2/data.yaml', 'model_name': 'client2'},
+    {'data_yaml': '/content/drive/MyDrive/Datasets/ppekit/client1/data.yaml', 'model_name': 'client1'},
+    {'data_yaml': '/content/drive/MyDrive/Datasets/ppekit/client2/data.yaml', 'model_name': 'client2'},
 ]
-GLOBAL_MODEL_SAVE_DIR = 'global_model_checkpoints'  # Directory to save checkpoints
-os.makedirs(GLOBAL_MODEL_SAVE_DIR, exist_ok=True)  # Ensure directory exists
+
+# Define base directory for all outputs (models, checkpoints) in Google Drive
+# Make sure you create this folder in your Google Drive: e.g., 'MyDrive/FL_YOLOv8_Project_Outputs'
+FL_PROJECT_OUTPUTS_DIR = '/content/drive/MyDrive/FL_YOLOv8_Project_Outputs' # Unified output directory
+
+GLOBAL_MODEL_SAVE_DIR = os.path.join(FL_PROJECT_OUTPUTS_DIR, 'global_model_checkpoints')
+os.makedirs(GLOBAL_MODEL_SAVE_DIR, exist_ok=True) # Ensure directory exists
 INITIAL_GLOBAL_MODEL_PATH = os.path.join(GLOBAL_MODEL_SAVE_DIR, 'global_model_r0.pt')
 
-EPOCHS_PER_ROUND = 10
-NUM_CLASSES = 4
+EPOCHS_PER_ROUND = 1
+NUM_CLASSES = 4 # Make sure this matches 'nc' in your data.yaml files
+
+# Determine number of workers for client data loaders
+# Use half of CPU cores, or adjust based on your needs/memory.
+# For small datasets, 0 or 1 might be fine too.
+NUM_WORKERS_FOR_CLIENT_DATALOADERS = os.cpu_count() // 2
+if NUM_WORKERS_FOR_CLIENT_DATALOADERS == 0: # Ensure at least 1 worker if cpu_count is 1
+    NUM_WORKERS_FOR_CLIENT_DATALOADERS = 1
+
 
 def train_clients(round_num):
     print(f"\n=== Training Round {round_num + 1} ===")
@@ -24,83 +40,80 @@ def train_clients(round_num):
 
     for client in CLIENTS:
         save_name = f"{client['model_name']}_round{round_num + 1}"
-
         # Determine starting weights for this round
         if round_num == 0:
-            # For the very first round, use the original yolov8n.pt
+            # For the very first round, use the original yolov8n.pt.
             starting_weights = 'yolov8n.pt'
         else:
-            # For subsequent rounds, use the *full checkpoint* of the aggregated global model
-            # This ensures the model's architecture is loaded correctly.
+            # For subsequent rounds, use the *full checkpoint* of the aggregated global model.
             starting_weights = current_global_model_path
 
         print(f"  Client {client['model_name']} starting with weights: {starting_weights}")
-
+        
+        # Call train_client.py as a subprocess
+        # Pass device='cuda' and workers for GPU and efficient data loading
         subprocess.run([
-            'python', 'train_client.py',
+            'python', 'FL_WithSequentialTraining/train_client.py', # Path to your train_client.py
             '--data', client['data_yaml'],
-            '--save', save_name,  # This will create runs/detect/clientX_roundY/weights/best.pt
+            '--save', save_name, # This will create runs/detect/clientX_roundY/weights/best.pt in Colab temp storage
             '--epochs', str(EPOCHS_PER_ROUND),
-            '--weights', starting_weights
-        ], check=True)
+            '--weights', starting_weights,
+            '--device', 'cuda', # Explicitly tell train_client to use GPU
+            '--workers', str(NUM_WORKERS_FOR_CLIENT_DATALOADERS) # Pass worker count
+        ], check=True) # check=True will raise an error if the subprocess fails
 
         # Retrieve the path to the best.pt saved by ultralytics train command
-        client_run_dir = os.path.join('runs', 'detect', save_name)
+        # Note: Ultralytics saves to a 'runs/detect/name_of_run' structure by default.
+        client_run_dir = os.path.join('runs', 'detect', save_name) # This will be in Colab's ephemeral storage
         best_pt_path = os.path.join(client_run_dir, 'weights', 'best.pt')
 
         if not os.path.exists(best_pt_path):
             raise FileNotFoundError(f"Client {client['model_name']} trained model not found at {best_pt_path}")
 
         weights_paths.append(best_pt_path)
+        
+        # Clean up client's temporary run directory to free up space
+        if os.path.exists(client_run_dir):
+            try:
+                shutil.rmtree(client_run_dir)
+                print(f"  Client {client['model_name']}: Cleaned up temporary run directory: {client_run_dir}")
+            except Exception as e:
+                print(f"  Client {client['model_name']}: Could not remove temporary directory {client_run_dir}: {e}")
+
     return weights_paths
 
 
 def aggregate(weights_paths, round_num):
-    import aggregate_weights  # Import your aggregation script
+    # Import your aggregation script
+    import aggregate_weights
 
-    # 1. Load the state_dicts from client models
-    client_state_dicts = []
-    for p in weights_paths:
-        # Load the checkpoint as it is saved by ultralytics
-        ckpt = torch.load(p, map_location='cpu', weights_only=False)
-        # Extract the model's state_dict, which is usually under the 'model' key
-        if 'model' in ckpt:
-            if hasattr(ckpt['model'], 'state_dict'):
-                client_state_dicts.append(ckpt['model'].state_dict())
-            elif isinstance(ckpt['model'], dict):
-                client_state_dicts.append(ckpt['model'])
-            else:
-                raise ValueError(f"Unexpected type for ckpt['model'] at {p}: {type(ckpt['model'])}")
-        elif hasattr(ckpt, 'state_dict'):
-            client_state_dicts.append(ckpt.state_dict())
-        else:  # Assume ckpt itself is the state_dict
-            client_state_dicts.append(ckpt)
+    print(f"\n=== Aggregating Models for Round {round_num + 1} ===")
 
-    # 2. Average the state_dicts
-    # We should use the modified average_weights that assumes consistent shapes
-    avg_state_dict = aggregate_weights.average_weights(weights_paths)  # This will re-load inside
-    # OR, modify average_weights to accept list of state_dicts:
-    # avg_state_dict = average_weights_from_state_dicts(client_state_dicts)
+    # Average the weights using your aggregate_weights script's function
+    # It will re-load weights from paths within that function.
+    avg_state_dict = aggregate_weights.average_weights(weights_paths)
 
     # 3. Create a new global model with the correct structure (nc=4)
-    # For the first round, the client models will have adapted their heads to 4 classes.
-    # The aggregated model should also have 4 classes.
-    # So, we load the initial yolov8n.pt, then load the aggregated state_dict.
-    # The best way is to load one of the trained client models
-    # (which has the correct 4-class structure) and then update its weights.
-
-    # Load one of the client models to get its structure (which should be 4-class)
-    # Assuming all client models are trained to 4 classes, pick any one.
-    base_model_for_aggregation = YOLO(weights_paths[0])
+    # The best way is to load one of the *trained client models*
+    # (which has the correct 4-class structure after initial adaptation)
+    # and then update its weights with the averaged state_dict.
+    base_model_for_aggregation = YOLO(weights_paths[0]) # Load a model with the correct head structure
 
     # Apply the averaged state_dict to this base model
     base_model_for_aggregation.model.load_state_dict(avg_state_dict)
 
-    # Now, verify the nc of the aggregated model
-    print(f"Aggregated Model NC: {base_model_for_aggregation.model.model[-1].nc}")
-    if base_model_for_aggregation.model.model[-1].nc != NUM_CLASSES:
-        print(
-            f"WARNING: Aggregated model nc is {base_model_for_aggregation.model.model[-1].nc}, expected {NUM_CLASSES}")
+    # Verify the nc of the aggregated model
+    try:
+        final_detection_layer_nc = base_model_for_aggregation.model.model[-1].nc
+        print(f"Aggregated Model NC: {final_detection_layer_nc}")
+        if final_detection_layer_nc != NUM_CLASSES:
+            print(
+                f"WARNING: Aggregated model nc is {final_detection_layer_nc}, expected {NUM_CLASSES}. "
+                "Ensure your data.yaml is correctly configured for {NUM_CLASSES} classes."
+            )
+    except AttributeError:
+        print("Could not verify NC of the aggregated model. Ensure model structure is as expected.")
+
 
     # 4. Save the full YOLO checkpoint (model, optimizer, etc.)
     # This makes it fully loadable by YOLO('path/to/pt') for the next round
@@ -115,17 +128,57 @@ def main():
     # Fix for PyTorch 2.6+ to avoid pickling errors (good to keep)
     torch.serialization.add_safe_globals(['ultralytics.nn.tasks.DetectionModel'])
 
-    # Initialize the first global model (yolov8n.pt) if it doesn't exist in our save directory
-    # This ensures global_model_r0.pt exists for Round 1 client training
-    if not os.path.exists(INITIAL_GLOBAL_MODEL_PATH):
-        print(f"Creating initial global model checkpoint at {INITIAL_GLOBAL_MODEL_PATH}")
-        YOLO('yolov8n.pt').save(INITIAL_GLOBAL_MODEL_PATH)
-    else:
-        print(f"Initial global model checkpoint found at {INITIAL_GLOBAL_MODEL_PATH}")
+    # CRITICAL FIX: GLOBAL MODEL HEAD ADAPTATION
+    # This ensures the global model's Detect head is configured for NUM_CLASSES (4)
+    # before the first round of federated training.
+    print(f"Server: Forcing global model head adaptation to {NUM_CLASSES} classes...")
+    # Use any client's data.yaml for this adaptation
+    DUMMY_DATA_YAML_FOR_ADAPTATION = CLIENTS[0]['data_yaml'] # Use client1's data.yaml for adaptation
+
+    # Load initial yolov8n.pt model
+    initial_global_yolo_model = YOLO('yolov8n.pt')
+
+    # Run a single dummy epoch training to force head adaptation.
+    # This creates a temporary 'runs' directory, which will be cleaned up.
+    try:
+        initial_global_yolo_model.train(
+            data=DUMMY_DATA_YAML_FOR_ADAPTATION,
+            epochs=1,  # Just 1 epoch to force adaptation
+            imgsz=640,
+            batch=1,   # Minimal batch size to reduce resource usage
+            device='cuda', # Use cuda for adaptation
+            project='_temp_global_adapter_project',  # Temporary project folder
+            name='_global_head_adapter_run',         # Temporary run name
+            exist_ok=True, # Allow overwriting temp folder if run multiple times
+            save=False,    # Don't save weights from this dummy run
+            plots=False,
+            verbose=False, # Suppress verbose output
+            workers=0 # No need for multiple workers for this quick dummy run
+        )
+    except Exception as e:
+        print(f"WARNING: Dummy training for global model adaptation failed: {e}")
+        print("This might be due to issues with dataset paths or ultralytics setup. Attempting to proceed.")
+
+    # After this dummy training, the initial_global_yolo_model's head should be correctly adapted.
+    # Save this adapted model as the initial global model for the first round.
+    initial_global_yolo_model.save(INITIAL_GLOBAL_MODEL_PATH)
+    print(f"✅ Initial global model (adapted to {NUM_CLASSES} classes) saved to: {INITIAL_GLOBAL_MODEL_PATH}")
+
+    # Clean up the temporary training directory created by this dummy run.
+    temp_adapter_dir = os.path.join('_temp_global_adapter_project', '_global_head_adapter_run')
+    if os.path.exists(temp_adapter_dir):
+        try:
+            shutil.rmtree(temp_adapter_dir)
+            print(f"Server: Cleaned up temporary directory: {temp_adapter_dir}")
+        except Exception as e:
+            print(f"Server: Could not remove temporary directory {temp_adapter_dir}: {e}")
+    # --- END CRITICAL FIX ---
+
 
     for round_num in range(NUM_ROUNDS):
-        weights_paths = train_clients(round_num)  # This returns paths to client best.pt
-        aggregate(weights_paths, round_num)  # Pass round_num to aggregate for saving path
+        print(f"\n===== Federated Learning Round {round_num + 1}/{NUM_ROUNDS} =====")
+        weights_paths = train_clients(round_num) # This returns paths to client best.pt
+        aggregate(weights_paths, round_num) # Pass round_num to aggregate for saving path
         print(f"✅ Completed Round {round_num + 1}\n")
 
 if __name__ == "__main__":
