@@ -28,11 +28,10 @@ def train_clients(round_num):
         # Determine starting weights for this round
         if round_num == 0:
             # For the very first round, use the original yolov8n.pt
-            # ultralytics will automatically adapt the head to your centralized_data.yaml's nc.
             starting_weights = 'yolov8n.pt'
         else:
             # For subsequent rounds, use the *full checkpoint* of the aggregated global model
-            # This ensures the model's architecture (including nc=4) is loaded correctly.
+            # This ensures the model's architecture is loaded correctly.
             starting_weights = current_global_model_path
 
         print(f"  Client {client['model_name']} starting with weights: {starting_weights}")
@@ -86,8 +85,8 @@ def aggregate(weights_paths, round_num):
     # 3. Create a new global model with the correct structure (nc=4)
     # For the first round, the client models will have adapted their heads to 4 classes.
     # The aggregated model should also have 4 classes.
-    # So, we load the *initial* yolov8n.pt, then load the aggregated state_dict.
-    # This is slightly tricky. The best way is to load one of the *trained client models*
+    # So, we load the initial yolov8n.pt, then load the aggregated state_dict.
+    # The best way is to load one of the trained client models
     # (which has the correct 4-class structure) and then update its weights.
 
     # Load one of the client models to get its structure (which should be 4-class)
