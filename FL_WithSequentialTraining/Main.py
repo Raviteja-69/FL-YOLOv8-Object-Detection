@@ -40,39 +40,36 @@ def train_clients(round_num):
 
     for client in CLIENTS:
         save_name = f"{client['model_name']}_round{round_num + 1}"
+
         # Determine starting weights for this round
         if round_num == 0:
-            # For the very first round, use the original yolov8n.pt.
-            starting_weights = 'yolov8n.pt'
+            # For the very first round, use the ADAPTED global_model_r0.pt
+            starting_weights = INITIAL_GLOBAL_MODEL_PATH
         else:
-            # For subsequent rounds, use the *full checkpoint* of the aggregated global model.
+            # For subsequent rounds, use the *full checkpoint* of the aggregated global model
             starting_weights = current_global_model_path
 
         print(f"  Client {client['model_name']} starting with weights: {starting_weights}")
-        
-        # Call train_client.py as a subprocess
-        # Pass device='cuda' and workers for GPU and efficient data loading
+
         subprocess.run([
-            'python', 'FL_WithSequentialTraining/train_client.py', # Path to your train_client.py
+            'python', 'FL_WithSequentialTraining/train_client.py',
             '--data', client['data_yaml'],
-            '--save', save_name, # This will create runs/detect/clientX_roundY/weights/best.pt in Colab temp storage
+            '--save_name', save_name,
             '--epochs', str(EPOCHS_PER_ROUND),
             '--weights', starting_weights,
-            '--device', 'cuda', # Explicitly tell train_client to use GPU
-            '--workers', str(NUM_WORKERS_FOR_CLIENT_DATALOADERS) # Pass worker count
-        ], check=True) # check=True will raise an error if the subprocess fails
+            '--device', 'cuda',
+            '--workers', str(NUM_WORKERS_FOR_CLIENT_DATALOADERS)
+        ], check=True)
 
         # Retrieve the path to the best.pt saved by ultralytics train command
-        # Note: Ultralytics saves to a 'runs/detect/name_of_run' structure by default.
-        client_run_dir = os.path.join('runs', 'detect', save_name) # This will be in Colab's ephemeral storage
+        client_run_dir = os.path.join('runs', 'detect', save_name)
         best_pt_path = os.path.join(client_run_dir, 'weights', 'best.pt')
 
         if not os.path.exists(best_pt_path):
             raise FileNotFoundError(f"Client {client['model_name']} trained model not found at {best_pt_path}")
 
         weights_paths.append(best_pt_path)
-        
-        # Clean up client's temporary run directory to free up space
+
         if os.path.exists(client_run_dir):
             try:
                 shutil.rmtree(client_run_dir)
