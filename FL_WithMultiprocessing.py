@@ -5,7 +5,7 @@ import torch.nn as nn
 from copy import deepcopy
 from multiprocessing import Pool
 
-# --- Server Configuration ---
+# Server Configuration
 NUM_ROUNDS = 5
 EPOCHS_PER_ROUND = 30  # This is for actual client training
 NUM_CLIENTS_TO_SELECT_PER_ROUND = 2
@@ -21,14 +21,14 @@ os.makedirs(GLOBAL_MODEL_CHECKPOINTS_DIR, exist_ok=True)
 initial_global_model_path = 'yolov8n.pt'
 NUM_CUSTOM_CLASSES = 4  # Define your custom number of classes here explicitly
 
-# --- Client Configuration (Simulated) ---
+# Client Configuration (Simulated)
 CLIENT_DATA_CONFIGS = {
     'client1': 'ppekit/client1/data.yaml',  # Ensure this has nc: 4
     'client2': 'ppekit/client2/data.yaml',  # Ensure this has nc: 4
 }
 
 
-# --- Federated Averaging Function (FedAvg) ---
+# Federated Averaging Function (FedAvg)
 def fed_avg(global_model, client_models_state_dicts):
     global_weights = deepcopy(global_model.state_dict())
     aggregated_weights = {key: torch.zeros_like(value) for key, value in global_weights.items()}
@@ -40,7 +40,7 @@ def fed_avg(global_model, client_models_state_dicts):
                 continue
 
             if aggregated_weights[key].shape != client_sd[key].shape:
-                # This should ideally not trigger after the fix below!
+                # This should ideally not trigger
                 print(f"Shape Mismatch for key: '{key}'")
                 print(f"  Global model shape: {aggregated_weights[key].shape}")
                 print(f"  Client model shape: {client_sd[key].shape}")
@@ -54,7 +54,7 @@ def fed_avg(global_model, client_models_state_dicts):
     return global_model
 
 
-# --- Client Training Function ---
+# Client Training Function
 def client_train_task(args):
     client_id, global_model_path, data_yaml, epochs, output_dir, current_round = args
 
@@ -62,7 +62,7 @@ def client_train_task(args):
 
     client_model = YOLO(global_model_path)  # Clients load the global model as a .pt file
 
-    client_run_name = f'{client_id}_round_{current_round}'  # Changed for cleaner names
+    client_run_name = f'{client_id}_round_{current_round}'
     client_output_path = os.path.join(output_dir, client_run_name)
 
     client_model.train(
@@ -88,7 +88,7 @@ def client_train_task(args):
     return trained_model.state_dict()
 
 
-# --- Federated Learning Server Loop ---
+# Federated Learning Server Loop
 if __name__ == "__main__":
     # --- CRITICAL FIX FOR GLOBAL MODEL INITIALIZATION ---
     # 1. Load the pre-trained YOLOv8n model.
@@ -118,7 +118,7 @@ if __name__ == "__main__":
         verbose=False  # Suppress verbose output
     )
 
-    # After this dummy training, the global_model's head should be correctly adapted to 4 classes.
+    # After this dummy training, the global_model's head should be correctly adapted to number of classes of your custom dataset.
     # Clean up the temporary training directory created by this dummy run.
     import shutil
 
