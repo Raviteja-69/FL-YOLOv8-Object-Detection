@@ -1,4 +1,6 @@
 **USE THIS WHEN YOU HAVE MULTIPLE GPUS OR MULTIPLE CPU CORES**
+
+
 Then we can achieve pure parallelism while training clients
 
 when we are using google colab free GPUs, we're equipped with only one GPU, so we cannot achieve parallelism in this case.
