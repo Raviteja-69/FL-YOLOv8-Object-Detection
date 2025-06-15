@@ -5,7 +5,6 @@ Centralised_data_yaml = 'Data/centralized_data.yaml'
 
 model = YOLO('yolov8n.pt')
 
-# FL was 3 rounds * 5 epochs/round = 15 total epochs
 epochs = 15
 
 OUTPUT_CENTRALIZED_DIR = 'centralized_training_results'
