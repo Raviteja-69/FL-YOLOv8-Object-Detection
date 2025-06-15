@@ -70,12 +70,12 @@ def train_clients(round_num):
 
         weights_paths.append(best_pt_path)
 
-        if os.path.exists(client_run_dir):
-            try:
-                shutil.rmtree(client_run_dir)
-                print(f"  Client {client['model_name']}: Cleaned up temporary run directory: {client_run_dir}")
-            except Exception as e:
-                print(f"  Client {client['model_name']}: Could not remove temporary directory {client_run_dir}: {e}")
+        # if os.path.exists(client_run_dir):
+        #     try:
+        #         shutil.rmtree(client_run_dir)
+        #         print(f"  Client {client['model_name']}: Cleaned up temporary run directory: {client_run_dir}")
+        #     except Exception as e:
+        #         print(f"  Client {client['model_name']}: Could not remove temporary directory {client_run_dir}: {e}")
 
     return weights_paths
 
