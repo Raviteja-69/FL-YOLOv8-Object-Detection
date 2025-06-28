@@ -19,7 +19,7 @@ FederatedLearning/
 │   └── client.py
 ├── Evaluate_models/      # Scripts for evaluating trained models
 ├── partition_dataset.py  # Script to partition dataset among clients (IID, non-IID, custom)
-├── partition_dataset_README.txt # Instructions for dataset partitioning
+├── partition_dataset_instructions.txt # Instructions for dataset partitioning
 ├── requirements.txt
 ├── README.md
 └── ... (other files)
@@ -42,7 +42,7 @@ FederatedLearning/
 - **`partition_dataset.py`**: Flexible script to split a YOLO-format dataset among any number of clients.
   - Supports IID (random), non-IID (by class), and custom proportions (per-class, per-client).
   - Generates correct folder structure and `data.yaml` for each client.
-  - See `partition_dataset_README.txt` for detailed usage and examples.
+  - See `partition_dataset_instructions.txt` for detailed usage and examples.
 
 ### 4. **Model Evaluation**
 - **`Evaluate_models/`**: Scripts for evaluating global or client models on validation/test sets.
