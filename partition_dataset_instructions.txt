@@ -1,0 +1,53 @@
+Partitioning YOLO Dataset for Federated Learning
+===============================================
+
+This project includes a script, partition_dataset.py, to split a YOLO-format dataset among multiple clients for federated learning experiments.
+
+Features:
+---------
+- Supports IID (random, uniform), non-IID (by class), Dirichlet-based non-IID, and custom proportions (via inline dict or YAML file).
+- By default, splits the train set among 2 clients (can be changed via argument).
+- Uses a global validation and test set for all clients.
+- For each client, creates train/images, train/labels, and a data.yaml with correct nc/names.
+- Accepts command-line arguments for number of clients, split type, and (optionally) custom proportions YAML or Dirichlet alpha.
+- Assumes dataset root has train/images, train/labels, valid/images, valid/labels, test/images, test/labels.
+- Outputs client folders in a specified output directory (default: ./partitioned_clients/).
+
+How to Use:
+-----------
+
+1. **IID (random, uniform) split, 2 clients:**
+   python partition_dataset.py --dataset_root /path/to/your/dataset --num_clients 2 --split_type iid
+
+2. **Non-IID by class, 2 clients:**
+   python partition_dataset.py --dataset_root /path/to/your/dataset --num_clients 2 --split_type non-iid-class
+
+3. **Dirichlet-based non-IID split, 3 clients, alpha=0.3:**
+   python partition_dataset.py --dataset_root /path/to/your/dataset --num_clients 3 --split_type non-iid-dirichlet --dirichlet_alpha 0.3
+
+   - The Dirichlet alpha parameter controls the degree of non-IID-ness:
+     - Lower alpha (e.g., 0.1): clients are more specialized (more non-IID)
+     - Higher alpha (e.g., 10): clients are more balanced (more IID)
+     - Typical research values: 0.1 (very non-IID), 0.3–1.0 (moderate), 10 (almost IID)
+
+4. **Custom proportions (with YAML):**
+   python partition_dataset.py --dataset_root /path/to/your/dataset --num_clients 2 --split_type custom --custom_proportions custom_props.yaml
+
+   - The custom_props.yaml should look like:
+     """
+     "0": [0.8, 0.2]  # 80% of class 0 to client 1, 20% to client 2
+     "1": [0.2, 0.8]  # 20% of class 1 to client 1, 80% to client 2
+     # etc. for all classes
+     """
+
+Outputs:
+--------
+- For each client: clientX/train/images, clientX/train/labels, clientX/data.yaml
+- Each client shares the same valid and test set (global validation/testing)
+
+Notes:
+------
+- You can change the number of clients and the output directory with the --num_clients and --output_dir arguments.
+- The script assumes your dataset is in standard YOLO format with images and labels in separate folders.
+- For more advanced splits, use the Dirichlet option or edit the custom proportions YAML or the script as needed.
+- Dirichlet-based partitioning is recommended for realistic federated learning research. 
