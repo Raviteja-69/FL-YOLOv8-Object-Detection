@@ -1,0 +1,15 @@
+num_rounds: 3
+epochs_per_round: 10
+
+NUM_CLASSES: 5
+CLASS_NAMES: ['helmet', 'no-helmet', 'no-vest', 'person', 'vest']
+
+fl_project_outputs_dir: FL_YOLOv8_Project_Outputs
+device: cpu
+clients:
+  - model_name: client1
+    data_yaml: C:/Users/srini/PycharmProjects/FederatedLearning/partitioned_clients/client1/data.yaml
+  - model_name: client2
+    data_yaml: C:/Users/srini/PycharmProjects/FederatedLearning/partitioned_clients/client2/data.yaml
+  - model_name: client3
+    data_yaml: C:/Users/srini/PycharmProjects/FederatedLearning/partitioned_clients/client3/data.yaml

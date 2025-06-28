@@ -1,0 +1,194 @@
+2025-06-26 13:31:48,188 [INFO] Server: Forcing global model head adaptation to 4 classes...
+2025-06-26 13:31:52,840 [WARNING] Dummy training for global model adaptation failed: Invalid CUDA 'device=0' requested. Use 'device=cpu' or pass valid CUDA device(s) if available, i.e. 'device=0' or 'device=0,1,2,3' for Multi-GPU.
+
+torch.cuda.is_available(): False
+torch.cuda.device_count(): 0
+os.environ['CUDA_VISIBLE_DEVICES']: None
+See https://pytorch.org/get-started/locally/ for up-to-date torch install instructions if no CUDA devices are seen by torch.
+
+2025-06-26 13:31:52,840 [WARNING] This might be due to issues with dataset paths or ultralytics setup. Attempting to proceed.
+2025-06-26 13:31:52,952 [INFO] ===== Federated Learning Round 1/3 =====
+2025-06-26 13:31:52,952 [INFO] === Training Round 1 ===
+2025-06-26 13:31:52,952 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 13:31:52,995 [ERROR] Training failed for client client1: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', '/content/drive/MyDrive/Datasets/ppekit/client1/data.yaml', '--save', 'client1_round1', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r0.pt', '--device', 'cuda', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:31:52,995 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 13:31:53,031 [ERROR] Training failed for client client2: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', '/content/drive/MyDrive/Datasets/ppekit/client2/data.yaml', '--save', 'client2_round1', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r0.pt', '--device', 'cuda', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:31:53,036 [INFO] === Aggregating Models for Round 1 ===
+2025-06-26 13:31:53,037 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:31:53,037 [INFO] ===== Federated Learning Round 2/3 =====
+2025-06-26 13:31:53,038 [INFO] === Training Round 2 ===
+2025-06-26 13:31:53,038 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 13:31:53,071 [ERROR] Training failed for client client1: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', '/content/drive/MyDrive/Datasets/ppekit/client1/data.yaml', '--save', 'client1_round2', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r1.pt', '--device', 'cuda', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:31:53,071 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 13:31:53,102 [ERROR] Training failed for client client2: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', '/content/drive/MyDrive/Datasets/ppekit/client2/data.yaml', '--save', 'client2_round2', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r1.pt', '--device', 'cuda', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:31:53,103 [INFO] === Aggregating Models for Round 2 ===
+2025-06-26 13:31:53,103 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:31:53,103 [INFO] ===== Federated Learning Round 3/3 =====
+2025-06-26 13:31:53,103 [INFO] === Training Round 3 ===
+2025-06-26 13:31:53,103 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 13:31:53,136 [ERROR] Training failed for client client1: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', '/content/drive/MyDrive/Datasets/ppekit/client1/data.yaml', '--save', 'client1_round3', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r2.pt', '--device', 'cuda', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:31:53,136 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 13:31:53,174 [ERROR] Training failed for client client2: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', '/content/drive/MyDrive/Datasets/ppekit/client2/data.yaml', '--save', 'client2_round3', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r2.pt', '--device', 'cuda', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:31:53,175 [INFO] === Aggregating Models for Round 3 ===
+2025-06-26 13:31:53,175 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:37:01,324 [INFO] Server: Forcing global model head adaptation to 4 classes...
+2025-06-26 13:37:02,042 [WARNING] Dummy training for global model adaptation failed: Invalid CUDA 'device=0' requested. Use 'device=cpu' or pass valid CUDA device(s) if available, i.e. 'device=0' or 'device=0,1,2,3' for Multi-GPU.
+
+torch.cuda.is_available(): False
+torch.cuda.device_count(): 0
+os.environ['CUDA_VISIBLE_DEVICES']: None
+See https://pytorch.org/get-started/locally/ for up-to-date torch install instructions if no CUDA devices are seen by torch.
+
+2025-06-26 13:37:02,042 [WARNING] This might be due to issues with dataset paths or ultralytics setup. Attempting to proceed.
+2025-06-26 13:37:02,132 [INFO] ===== Federated Learning Round 1/3 =====
+2025-06-26 13:37:02,132 [INFO] === Training Round 1 ===
+2025-06-26 13:37:02,132 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 13:37:02,169 [ERROR] Training failed for client client1: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client1/data.yaml', '--save', 'client1_round1', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r0.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:37:02,169 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 13:37:02,208 [ERROR] Training failed for client client2: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client2/data.yaml', '--save', 'client2_round1', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r0.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:37:02,210 [INFO] === Aggregating Models for Round 1 ===
+2025-06-26 13:37:02,210 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:37:02,210 [INFO] ===== Federated Learning Round 2/3 =====
+2025-06-26 13:37:02,210 [INFO] === Training Round 2 ===
+2025-06-26 13:37:02,211 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 13:37:02,243 [ERROR] Training failed for client client1: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client1/data.yaml', '--save', 'client1_round2', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r1.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:37:02,243 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 13:37:02,294 [ERROR] Training failed for client client2: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client2/data.yaml', '--save', 'client2_round2', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r1.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:37:02,295 [INFO] === Aggregating Models for Round 2 ===
+2025-06-26 13:37:02,295 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:37:02,296 [INFO] ===== Federated Learning Round 3/3 =====
+2025-06-26 13:37:02,296 [INFO] === Training Round 3 ===
+2025-06-26 13:37:02,296 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 13:37:02,357 [ERROR] Training failed for client client1: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client1/data.yaml', '--save', 'client1_round3', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r2.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:37:02,358 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 13:37:02,390 [ERROR] Training failed for client client2: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client2/data.yaml', '--save', 'client2_round3', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r2.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:37:02,390 [INFO] === Aggregating Models for Round 3 ===
+2025-06-26 13:37:02,390 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:41:12,612 [INFO] Server: Forcing global model head adaptation to 4 classes...
+2025-06-26 13:41:35,624 [INFO] Server: Cleaned up temporary directory: _temp_global_adapter_project\_global_head_adapter_run
+2025-06-26 13:41:35,624 [INFO] ===== Federated Learning Round 1/3 =====
+2025-06-26 13:41:35,625 [INFO] === Training Round 1 ===
+2025-06-26 13:41:35,625 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 13:41:35,676 [ERROR] Training failed for client client1: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client1/data.yaml', '--save', 'client1_round1', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r0.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:41:35,676 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 13:41:35,713 [ERROR] Training failed for client client2: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client2/data.yaml', '--save', 'client2_round1', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r0.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:41:35,714 [INFO] === Aggregating Models for Round 1 ===
+2025-06-26 13:41:35,715 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:41:35,715 [INFO] ===== Federated Learning Round 2/3 =====
+2025-06-26 13:41:35,715 [INFO] === Training Round 2 ===
+2025-06-26 13:41:35,716 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 13:41:35,753 [ERROR] Training failed for client client1: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client1/data.yaml', '--save', 'client1_round2', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r1.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:41:35,753 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 13:41:35,791 [ERROR] Training failed for client client2: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client2/data.yaml', '--save', 'client2_round2', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r1.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:41:35,791 [INFO] === Aggregating Models for Round 2 ===
+2025-06-26 13:41:35,791 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:41:35,792 [INFO] ===== Federated Learning Round 3/3 =====
+2025-06-26 13:41:35,792 [INFO] === Training Round 3 ===
+2025-06-26 13:41:35,792 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 13:41:35,822 [ERROR] Training failed for client client1: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client1/data.yaml', '--save', 'client1_round3', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r2.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:41:35,822 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 13:41:35,874 [ERROR] Training failed for client client2: Command '['python', 'FL_WithSequentialTraining/train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client2/data.yaml', '--save', 'client2_round3', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r2.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:41:35,874 [INFO] === Aggregating Models for Round 3 ===
+2025-06-26 13:41:35,874 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:43:49,878 [INFO] Server: Forcing global model head adaptation to 4 classes...
+2025-06-26 13:44:11,611 [INFO] Server: Cleaned up temporary directory: _temp_global_adapter_project\_global_head_adapter_run
+2025-06-26 13:44:11,612 [INFO] ===== Federated Learning Round 1/3 =====
+2025-06-26 13:44:11,612 [INFO] === Training Round 1 ===
+2025-06-26 13:44:11,612 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 13:44:18,432 [ERROR] Training failed for client client1: Command '['python', 'train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client1/data.yaml', '--save', 'client1_round1', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r0.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:44:18,432 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 13:44:23,007 [ERROR] Training failed for client client2: Command '['python', 'train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client2/data.yaml', '--save', 'client2_round1', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r0.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:44:23,010 [INFO] === Aggregating Models for Round 1 ===
+2025-06-26 13:44:23,010 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:44:23,011 [INFO] ===== Federated Learning Round 2/3 =====
+2025-06-26 13:44:23,011 [INFO] === Training Round 2 ===
+2025-06-26 13:44:23,011 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 13:44:27,450 [ERROR] Training failed for client client1: Command '['python', 'train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client1/data.yaml', '--save', 'client1_round2', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r1.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:44:27,450 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 13:44:32,796 [ERROR] Training failed for client client2: Command '['python', 'train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client2/data.yaml', '--save', 'client2_round2', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r1.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:44:32,796 [INFO] === Aggregating Models for Round 2 ===
+2025-06-26 13:44:32,796 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:44:32,797 [INFO] ===== Federated Learning Round 3/3 =====
+2025-06-26 13:44:32,797 [INFO] === Training Round 3 ===
+2025-06-26 13:44:32,797 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 13:44:37,959 [ERROR] Training failed for client client1: Command '['python', 'train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client1/data.yaml', '--save', 'client1_round3', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r2.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:44:37,960 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 13:44:43,827 [ERROR] Training failed for client client2: Command '['python', 'train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client2/data.yaml', '--save', 'client2_round3', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r2.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:44:43,827 [INFO] === Aggregating Models for Round 3 ===
+2025-06-26 13:44:43,827 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:48:40,371 [INFO] Server: Forcing global model head adaptation to 4 classes...
+2025-06-26 13:49:16,378 [INFO] Server: Cleaned up temporary directory: _temp_global_adapter_project\_global_head_adapter_run
+2025-06-26 13:49:16,378 [INFO] ===== Federated Learning Round 1/3 =====
+2025-06-26 13:49:16,378 [INFO] === Training Round 1 ===
+2025-06-26 13:49:16,378 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 13:49:25,185 [ERROR] Training failed for client client1: Command '['python', 'train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client1/data.yaml', '--save', 'client1_round1', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r0.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:49:25,185 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 13:49:30,408 [ERROR] Training failed for client client2: Command '['python', 'train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client2/data.yaml', '--save', 'client2_round1', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r0.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:49:30,408 [INFO] === Aggregating Models for Round 1 ===
+2025-06-26 13:49:30,408 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:49:30,408 [INFO] ===== Federated Learning Round 2/3 =====
+2025-06-26 13:49:30,408 [INFO] === Training Round 2 ===
+2025-06-26 13:49:30,408 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 13:49:35,553 [ERROR] Training failed for client client1: Command '['python', 'train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client1/data.yaml', '--save', 'client1_round2', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r1.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:49:35,553 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 13:49:40,682 [ERROR] Training failed for client client2: Command '['python', 'train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client2/data.yaml', '--save', 'client2_round2', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r1.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:49:40,682 [INFO] === Aggregating Models for Round 2 ===
+2025-06-26 13:49:40,682 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:49:40,682 [INFO] ===== Federated Learning Round 3/3 =====
+2025-06-26 13:49:40,682 [INFO] === Training Round 3 ===
+2025-06-26 13:49:40,682 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 13:49:45,876 [ERROR] Training failed for client client1: Command '['python', 'train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client1/data.yaml', '--save', 'client1_round3', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r2.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:49:45,876 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 13:49:51,192 [ERROR] Training failed for client client2: Command '['python', 'train_client.py', '--data', 'C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client2/data.yaml', '--save', 'client2_round3', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs\\global_model_checkpoints\\global_model_r2.pt', '--device', 'cpu', '--workers', '4']' returned non-zero exit status 2.
+2025-06-26 13:49:51,192 [INFO] === Aggregating Models for Round 3 ===
+2025-06-26 13:49:51,192 [ERROR] Aggregation failed: No model weights loaded for averaging.
+2025-06-26 13:57:14,288 [INFO] Server: Forcing global model head adaptation to 4 classes...
+2025-06-26 13:57:43,657 [INFO] Server: Cleaned up temporary directory: _temp_global_adapter_project\_global_head_adapter_run
+2025-06-26 13:57:43,657 [INFO] ===== Federated Learning Round 1/3 =====
+2025-06-26 13:57:43,657 [INFO] === Training Round 1 ===
+2025-06-26 13:57:43,657 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 13:59:15,674 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 14:00:40,596 [INFO] === Aggregating Models for Round 1 ===
+2025-06-26 14:00:40,893 [INFO] Aggregated Model NC: 4
+2025-06-26 14:00:40,987 [INFO] ===== Federated Learning Round 2/3 =====
+2025-06-26 14:00:40,987 [INFO] === Training Round 2 ===
+2025-06-26 14:00:40,987 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 14:02:04,367 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 14:03:29,591 [INFO] === Aggregating Models for Round 2 ===
+2025-06-26 14:03:29,922 [INFO] Aggregated Model NC: 4
+2025-06-26 14:03:30,002 [INFO] ===== Federated Learning Round 3/3 =====
+2025-06-26 14:03:30,003 [INFO] === Training Round 3 ===
+2025-06-26 14:03:30,003 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 14:04:53,760 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 14:06:11,335 [INFO] === Aggregating Models for Round 3 ===
+2025-06-26 14:06:11,563 [INFO] Aggregated Model NC: 4
+2025-06-26 14:07:09,104 [INFO] Server: Forcing global model head adaptation to 4 classes...
+2025-06-26 14:07:35,815 [INFO] ✅ Initial global model (adapted to 4 classes) saved to: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 14:07:35,830 [INFO] Server: Cleaned up temporary directory: _temp_global_adapter_project\_global_head_adapter_run
+2025-06-26 14:07:35,830 [INFO] ===== Federated Learning Round 1/3 =====
+2025-06-26 14:07:35,830 [INFO] === Training Round 1 ===
+2025-06-26 14:07:35,830 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 14:08:50,281 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r0.pt
+2025-06-26 14:09:57,250 [INFO] === Aggregating Models for Round 1 ===
+2025-06-26 14:09:57,625 [INFO] Aggregated Model NC: 4
+2025-06-26 14:09:57,672 [INFO] ✅ Aggregated global model for Round 1 saved to: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 14:09:57,688 [INFO] ✅ Completed Round 1
+
+2025-06-26 14:09:57,688 [INFO] ===== Federated Learning Round 2/3 =====
+2025-06-26 14:09:57,688 [INFO] === Training Round 2 ===
+2025-06-26 14:09:57,688 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 14:11:04,750 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r1.pt
+2025-06-26 14:12:08,327 [INFO] === Aggregating Models for Round 2 ===
+2025-06-26 14:12:08,624 [INFO] Aggregated Model NC: 4
+2025-06-26 14:12:08,687 [INFO] ✅ Aggregated global model for Round 2 saved to: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 14:12:08,687 [INFO] ✅ Completed Round 2
+
+2025-06-26 14:12:08,687 [INFO] ===== Federated Learning Round 3/3 =====
+2025-06-26 14:12:08,687 [INFO] === Training Round 3 ===
+2025-06-26 14:12:08,687 [INFO]   Client client1 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 14:13:22,506 [INFO]   Client client2 starting with weights: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r2.pt
+2025-06-26 14:14:39,515 [INFO] === Aggregating Models for Round 3 ===
+2025-06-26 14:14:39,812 [INFO] Aggregated Model NC: 4
+2025-06-26 14:14:39,863 [INFO] ✅ Aggregated global model for Round 3 saved to: FL_YOLOv8_Project_Outputs\global_model_checkpoints\global_model_r3.pt
+2025-06-26 14:14:39,910 [INFO] ✅ Completed Round 3
+
