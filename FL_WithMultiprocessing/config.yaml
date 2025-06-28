@@ -1,0 +1,15 @@
+num_rounds: 2
+epochs_per_round: 1
+num_clients_per_round: 2
+num_classes: 4
+device: 'cpu' # 'cpu' or 'cuda'
+
+# Base directory for all project outputs
+fl_project_outputs_dir: "FL_YOLOv8_Project_Outputs_MP"
+
+# List of clients and their data configurations
+clients:
+  - data_yaml: "C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client1/data.yaml"
+    model_name: "client1"
+  - data_yaml: "C:/Users/srini/PycharmProjects/FederatedLearning/ppekit/client2/data.yaml"
+    model_name: "client2" 
