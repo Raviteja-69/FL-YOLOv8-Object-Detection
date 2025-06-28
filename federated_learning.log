@@ -1,0 +1,94 @@
+2025-06-27 07:48:55,755 [INFO] ===== Federated Learning Round 1/2 =====
+2025-06-27 07:48:55,756 [INFO] === Training Round 1 ===
+2025-06-27 07:48:55,758 [INFO] client1 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r0.pt
+2025-06-27 07:49:37,864 [ERROR] Training failed for client client1: Command '['python', '/content/drive/MyDrive/FL-YOLOv8-Object-Detection/FL_WithSequentialTraining/train_client.py', '--data', '/content/drive/MyDrive/Datasets/partitioned_clients/client1/data.yaml', '--save', 'client1_round1', '--epochs', '1', '--weights', 'FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r0.pt', '--device', 'cuda', '--workers', '1', '--output_dir', 'FL_YOLOv8_Project_Outputs/client_models']' returned non-zero exit status 1.
+2025-06-27 07:49:37,865 [INFO] client2 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r0.pt
+2025-06-27 07:57:33,211 [INFO] ===== Federated Learning Round 1/5 =====
+2025-06-27 07:57:33,211 [INFO] === Training Round 1 ===
+2025-06-27 07:57:33,212 [INFO] client1 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r0.pt
+2025-06-27 07:59:48,801 [INFO] client2 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r0.pt
+2025-06-27 08:03:06,651 [INFO] client3 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r0.pt
+2025-06-27 08:08:37,396 [INFO] === Aggregating Models for Round 1 ===
+2025-06-27 08:08:37,896 [INFO] ✅ Aggregated global model for Round 1 saved to: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r1.pt
+2025-06-27 08:08:37,899 [INFO] ✅ Completed Round 1
+
+2025-06-27 08:08:37,899 [INFO] ===== Federated Learning Round 2/5 =====
+2025-06-27 08:08:37,899 [INFO] === Training Round 2 ===
+2025-06-27 08:08:37,900 [INFO] client1 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r1.pt
+2025-06-27 08:10:52,304 [INFO] client2 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r1.pt
+2025-06-27 08:13:15,085 [INFO] client3 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r1.pt
+2025-06-27 08:15:34,537 [INFO] === Aggregating Models for Round 2 ===
+2025-06-27 08:15:34,845 [INFO] ✅ Aggregated global model for Round 2 saved to: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r2.pt
+2025-06-27 08:15:34,849 [INFO] ✅ Completed Round 2
+
+2025-06-27 08:15:34,849 [INFO] ===== Federated Learning Round 3/5 =====
+2025-06-27 08:15:34,849 [INFO] === Training Round 3 ===
+2025-06-27 08:15:34,850 [INFO] client1 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r2.pt
+2025-06-27 08:17:50,147 [INFO] client2 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r2.pt
+2025-06-27 08:20:13,464 [INFO] client3 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r2.pt
+2025-06-27 08:22:33,643 [INFO] === Aggregating Models for Round 3 ===
+2025-06-27 08:22:34,013 [INFO] ✅ Aggregated global model for Round 3 saved to: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r3.pt
+2025-06-27 08:22:34,017 [INFO] ✅ Completed Round 3
+
+2025-06-27 08:22:34,017 [INFO] ===== Federated Learning Round 4/5 =====
+2025-06-27 08:22:34,017 [INFO] === Training Round 4 ===
+2025-06-27 08:22:34,018 [INFO] client1 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r3.pt
+2025-06-27 08:24:48,482 [INFO] client2 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r3.pt
+2025-06-27 08:27:11,875 [INFO] client3 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r3.pt
+2025-06-27 08:29:33,307 [INFO] === Aggregating Models for Round 4 ===
+2025-06-27 08:29:33,624 [INFO] ✅ Aggregated global model for Round 4 saved to: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r4.pt
+2025-06-27 08:29:33,628 [INFO] ✅ Completed Round 4
+
+2025-06-27 08:29:33,628 [INFO] ===== Federated Learning Round 5/5 =====
+2025-06-27 08:29:33,629 [INFO] === Training Round 5 ===
+2025-06-27 08:29:33,629 [INFO] client1 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r4.pt
+2025-06-27 08:31:49,743 [INFO] client2 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r4.pt
+2025-06-27 08:34:12,462 [INFO] client3 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r4.pt
+2025-06-27 08:36:35,215 [INFO] === Aggregating Models for Round 5 ===
+2025-06-27 08:36:35,525 [INFO] ✅ Aggregated global model for Round 5 saved to: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r5.pt
+2025-06-27 08:36:35,528 [INFO] ✅ Completed Round 5
+
+2025-06-27 13:12:25,705 [INFO] ===== Federated Learning Round 1/5 =====
+2025-06-27 13:12:26,218 [INFO] === Training Round 1 ===
+2025-06-27 13:12:26,220 [INFO] client1 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r0.pt
+2025-06-27 13:17:09,614 [INFO] client2 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r0.pt
+2025-06-27 13:24:17,875 [INFO] client3 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r0.pt
+2025-06-27 13:36:03,392 [INFO] === Aggregating Models for Round 1 ===
+2025-06-27 13:36:03,699 [INFO] ✅ Aggregated global model for Round 1 saved to: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r1.pt
+2025-06-27 13:36:03,704 [INFO] ✅ Completed Round 1
+
+2025-06-27 13:36:03,704 [INFO] ===== Federated Learning Round 2/5 =====
+2025-06-27 13:36:03,704 [INFO] === Training Round 2 ===
+2025-06-27 13:36:03,705 [INFO] client1 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r1.pt
+2025-06-27 13:40:39,850 [INFO] client2 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r1.pt
+2025-06-27 13:43:46,920 [INFO] client3 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r1.pt
+2025-06-27 13:48:47,129 [INFO] === Aggregating Models for Round 2 ===
+2025-06-27 13:48:47,435 [INFO] ✅ Aggregated global model for Round 2 saved to: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r2.pt
+2025-06-27 13:48:47,439 [INFO] ✅ Completed Round 2
+
+2025-06-27 13:48:47,440 [INFO] ===== Federated Learning Round 3/5 =====
+2025-06-27 13:48:47,440 [INFO] === Training Round 3 ===
+2025-06-27 13:48:47,440 [INFO] client1 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r2.pt
+2025-06-27 13:53:23,834 [INFO] client2 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r2.pt
+2025-06-27 13:56:33,674 [INFO] client3 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r2.pt
+2025-06-27 14:01:39,231 [INFO] === Aggregating Models for Round 3 ===
+2025-06-27 14:01:39,546 [INFO] ✅ Aggregated global model for Round 3 saved to: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r3.pt
+2025-06-27 14:01:39,552 [INFO] ✅ Completed Round 3
+
+2025-06-27 14:01:39,553 [INFO] ===== Federated Learning Round 4/5 =====
+2025-06-27 14:01:39,553 [INFO] === Training Round 4 ===
+2025-06-27 14:01:39,553 [INFO] client1 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r3.pt
+2025-06-27 14:06:17,501 [INFO] client2 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r3.pt
+2025-06-27 14:09:25,494 [INFO] client3 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r3.pt
+2025-06-27 14:14:27,712 [INFO] === Aggregating Models for Round 4 ===
+2025-06-27 14:14:28,134 [INFO] ✅ Aggregated global model for Round 4 saved to: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r4.pt
+2025-06-27 14:14:28,139 [INFO] ✅ Completed Round 4
+
+2025-06-27 14:14:28,141 [INFO] ===== Federated Learning Round 5/5 =====
+2025-06-27 14:14:28,141 [INFO] === Training Round 5 ===
+2025-06-27 14:14:28,141 [INFO] client1 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r4.pt
+2025-06-27 14:19:08,855 [INFO] client2 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r4.pt
+2025-06-27 14:22:19,123 [INFO] client3 starting with weights: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r4.pt
+2025-06-27 14:27:26,114 [INFO] === Aggregating Models for Round 5 ===
+2025-06-27 14:27:26,412 [INFO] ✅ Aggregated global model for Round 5 saved to: FL_YOLOv8_Project_Outputs/global_model_checkpoints/global_model_r5.pt
+2025-06-27 14:27:26,419 [INFO] ✅ Completed Round 5
