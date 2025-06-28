@@ -6,7 +6,7 @@ import math
 model = YOLO("global_model_checkpoints/global_model_r5.pt")
 classNames = model.names
 
-image_path = "C:/Users/srini/OneDrive/Desktop/centralized learning/testimages/img3.jpg"
+image_path = "imagepath"
 img = cv2.imread(image_path)
 
 if img is None:
