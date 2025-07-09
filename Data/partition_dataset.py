@@ -4,7 +4,7 @@ import random
 import argparse
 import yaml
 from collections import defaultdict
-import numpy as np  # <-- Add numpy for Dirichlet
+import numpy as np
 
 # Helper to read YOLO label file and get all classes present in an image
 def get_classes_from_label(label_path):
@@ -35,7 +35,7 @@ def copy_files(image_list, src_img_dir, src_lbl_dir, dst_img_dir, dst_lbl_dir):
 def write_data_yaml(client_dir, nc, names, rel_train, rel_val, rel_test):
     data = {
         'train': rel_train,
-        'valid': rel_val,
+        'val': rel_val,  
         'test': rel_test,
         'nc': nc,
         'names': names
@@ -134,8 +134,7 @@ def partition_non_iid_dirichlet(train_images, label_dir, num_clients, nc, alpha=
 
 def main():
     args = parse_args()
-    random.seed(42)
-    np.random.seed(42)  # For reproducibility
+    # No random seed set; always random
     # Load global data.yaml for class info
     with open(os.path.join(args.dataset_root, 'data.yaml'), 'r') as f:
         data_yaml = yaml.safe_load(f)
