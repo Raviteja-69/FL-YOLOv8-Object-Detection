@@ -31,7 +31,7 @@ FederatedLearning/
 
 ### 1. **Core Utilities (`core/`)**
 - **`aggregation.py`**: Standardized federated averaging for model weights.
-- **`utils.py`**: Utilities for adapting the YOLOv8 model head to the correct number of classes (dummy training step).
+- **`utils.py`**: Utilities for adapting the YOLOv8 model head to the correct number of classes (**now uses zero-shot adaptation—no dummy training step required**).
 
 ### 2. **Federated Learning Approaches**
 - **Sequential Training (`FL_WithSequentialTraining/`)**: Clients train one after another in each round. Orchestrated by `Main.py`.
@@ -40,8 +40,8 @@ FederatedLearning/
 
 ### 3. **Dataset Partitioning**
 - **`partition_dataset.py`**: Flexible script to split a YOLO-format dataset among any number of clients.
-  - Supports IID (random), non-IID (by class), and custom proportions (per-class, per-client).
-  - Generates correct folder structure and `data.yaml` for each client.
+  - Supports IID (random), non-IID (by class or Dirichlet), and custom proportions (per-class, per-client).
+  - Generates correct folder structure and `data.yaml` for each client (with `val:` key for validation set, as required by YOLO).
   - See `partition_dataset_instructions.txt` for detailed usage and examples.
 
 ### 4. **Model Evaluation**
@@ -53,11 +53,12 @@ FederatedLearning/
 
 1. **Dataset Preparation**
    - Use `partition_dataset.py` to split your dataset among clients as desired (IID, non-IID, custom).
-   - Each client will have its own `train/` folder and `data.yaml`.
+   - Each client will have its own `train/` folder and `data.yaml` (with correct `val:` key).
 
 2. **Global Model Head Adaptation**
-   - Before FL rounds, the server runs a dummy training step (using `core/utils.py`) to adapt the YOLOv8 model head to the correct number of classes.
+   - Before FL rounds, the server runs a **zero-shot model head adaptation** (using `core/utils.py`) to adapt the YOLOv8 model head to the correct number of classes.
    - This ensures all client and global models are compatible for aggregation.
+   - **No dummy training or extra epochs are required for head adaptation.**
 
 3. **Federated Learning Rounds**
    - **Sequential:** Each client trains in turn, then the server aggregates their models.
@@ -71,7 +72,7 @@ FederatedLearning/
 
 ## Example: Partitioning the Dataset
 
-See `partition_dataset_README.txt` for full instructions. Example command:
+See `partition_dataset_instructions.txt` for full instructions. Example command:
 
 ```bash
 python partition_dataset.py --dataset_root /path/to/your/dataset --num_clients 2 --split_type iid
@@ -79,18 +80,24 @@ python partition_dataset.py --dataset_root /path/to/your/dataset --num_clients 2
 
 ---
 
+## Recent Improvements
+- **Zero-shot model head adaptation:** No dummy training step; model head is adapted instantly for the correct number of classes.
+
+- **Partitioning script:** supports IID, non-IID (class or Dirichlet), and custom splits, and writes YOLO-compatible `data.yaml` files.
+
+---
+
 ## Notes
 - The codebase is modular and ready for experiments with different data splits, aggregation strategies, and FL workflows.
-- Model head adaptation is **critical** for correct aggregation—handled automatically by the core utilities.
+- Model head adaptation is **critical** for correct aggregation—handled automatically by the core utilities using zero-shot adaptation.
 - For custom non-IID splits, provide a YAML file with per-class, per-client proportions.
-- All scripts are designed for reproducibility and easy extension.
 
 ---
 
 ## Getting Started
 1. Install requirements: `pip install -r requirements.txt`
 2. Partition your dataset: `python partition_dataset.py ...`
-3. Run federated training: `python FL_WithSequentialTraining/Main.py` or `python FL_WithMultiprocessing/main.py`
+3. Run federated training: `python FL_WithSequentialTraining/Main.py`
 4. Evaluate models: see `Evaluate_models/`
 
 ---
